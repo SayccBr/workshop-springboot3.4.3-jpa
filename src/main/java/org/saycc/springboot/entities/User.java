@@ -1,8 +1,18 @@
 package org.saycc.springboot.entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.io.Serializable;
 
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
+
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private String email;
@@ -18,14 +28,6 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.phone = phone;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getEmail() {
@@ -71,5 +73,13 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
