@@ -1,8 +1,7 @@
 package org.saycc.springboot.resources;
 
-import org.saycc.springboot.entities.User;
-import org.saycc.springboot.repositories.UserRepository;
-import org.saycc.springboot.services.UserService;
+import org.saycc.springboot.entities.Order;
+import org.saycc.springboot.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,22 +12,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/users")
-public class UserResource {
+@RequestMapping(value = "/orders")
+public class OrderResource {
 
     @Autowired
-    private UserService userService;
+    private OrderService OrderService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
-        List<User> users = userService.findAll();
+    public ResponseEntity<List<Order>> findAll(){
+        List<Order> Orders = OrderService.findAll();
 
-        return ResponseEntity.ok().body(users);
+        return ResponseEntity.ok().body(Orders);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
-        User obj = userService.findById(id);
+    public ResponseEntity<Order> findById(@PathVariable Long id) {
+        Order obj = OrderService.findById(id);
 
         return ResponseEntity.ok().body(obj);
     }
