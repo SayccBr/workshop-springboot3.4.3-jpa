@@ -1,8 +1,11 @@
 package org.saycc.springboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -12,6 +15,10 @@ public class Category implements Serializable {
     @GeneratedValue
     private Long id;
     private String name;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
+    private Set<Product> product = new HashSet<>();
 
     public Category() {
     }
@@ -37,6 +44,10 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+    public Set<Product> getProduct() {
+        return product;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -49,4 +60,5 @@ public class Category implements Serializable {
     public int hashCode() {
         return Long.hashCode(id);
     }
+
 }

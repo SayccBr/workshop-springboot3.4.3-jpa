@@ -2,10 +2,12 @@ package org.saycc.springboot.config;
 
 import org.saycc.springboot.entities.Category;
 import org.saycc.springboot.entities.Order;
+import org.saycc.springboot.entities.Product;
 import org.saycc.springboot.entities.User;
 import org.saycc.springboot.entities.enums.OrderStatus;
 import org.saycc.springboot.repositories.CategoryRepository;
 import org.saycc.springboot.repositories.OrderRepository;
+import org.saycc.springboot.repositories.ProductRepository;
 import org.saycc.springboot.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -28,6 +30,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository prodructRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -36,6 +41,18 @@ public class TestConfig implements CommandLineRunner {
         Category cat3 = new Category(null, "Eletro");
 
         categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+
+        Product p1 = new Product(null, "P1", "ass", 2.0, "d");
+        Product p2 = new Product(null, "P2", "pen", 3.0, "d");
+        Product p3 = new Product(null, "P3", "tits", 4.0, "d");
+
+        prodructRepository.saveAll(Arrays.asList(p1, p2, p3));
+
+        p1.getCategories().add(cat1);
+        p2.getCategories().add(cat2);
+        p3.getCategories().add(cat3);
+
+        prodructRepository.saveAll(Arrays.asList(p1, p2, p3));
 
         User u1 = new User(null, "maria", "maria@gmail.com", "9999", "125");
         User u2 = new User(null, "joao", "joao@gmail.com", "123", "4214124");
