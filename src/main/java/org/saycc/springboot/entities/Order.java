@@ -3,6 +3,7 @@ package org.saycc.springboot.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.saycc.springboot.entities.enums.OrderStatus;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -18,6 +19,8 @@ public class Order implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'z'", timezone = "GMT")
     private Instant createdAt;
 
+    private Integer status;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -25,9 +28,10 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Long id, User client, Instant createdAt) {
+    public Order(Long id, User client, OrderStatus status, Instant createdAt) {
         this.id = id;
         this.client = client;
+        setStatus(status);
         this.createdAt = createdAt;
     }
 
@@ -45,6 +49,16 @@ public class Order implements Serializable {
 
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public OrderStatus getStatus() {
+        return OrderStatus.getOrderStatus(status);
+    }
+
+    public void setStatus(OrderStatus status) {
+        if(status != null) {
+            this.status = status.getCode();
+        }
     }
 
     public User getClient() {
