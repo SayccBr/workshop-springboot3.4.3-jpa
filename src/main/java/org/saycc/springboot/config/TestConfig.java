@@ -1,14 +1,8 @@
 package org.saycc.springboot.config;
 
-import org.saycc.springboot.entities.Category;
-import org.saycc.springboot.entities.Order;
-import org.saycc.springboot.entities.Product;
-import org.saycc.springboot.entities.User;
+import org.saycc.springboot.entities.*;
 import org.saycc.springboot.entities.enums.OrderStatus;
-import org.saycc.springboot.repositories.CategoryRepository;
-import org.saycc.springboot.repositories.OrderRepository;
-import org.saycc.springboot.repositories.ProductRepository;
-import org.saycc.springboot.repositories.UserRepository;
+import org.saycc.springboot.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository prodructRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -64,6 +61,12 @@ public class TestConfig implements CommandLineRunner {
         Order o3 = new Order(null, u1, OrderStatus.DELIVERED, Instant.now());
 
         orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3));
 
 
     }
