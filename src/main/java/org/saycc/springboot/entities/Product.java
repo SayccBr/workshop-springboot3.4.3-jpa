@@ -1,5 +1,6 @@
 package org.saycc.springboot.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -22,6 +23,10 @@ public class Product implements Serializable {
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"),
     inverseJoinColumns = @JoinColumn(name="cactegory_id"))
     private Set<Category> categories  = new HashSet<Category>();
+
+    //Set não admite repetição do mesmo item, por isso usa-se Set ao invez de List
+    @OneToMany(mappedBy = "orderItemPK.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product() {
     }
@@ -76,6 +81,15 @@ public class Product implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> orders = new HashSet<>();
+        for (OrderItem orderItem : items) {
+            orders.add(orderItem.getOrder());
+        }
+        return orders;
     }
 
     @Override
