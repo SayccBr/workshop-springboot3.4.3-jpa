@@ -2,6 +2,7 @@ package org.saycc.springboot.services;
 
 import org.saycc.springboot.entities.User;
 import org.saycc.springboot.repositories.UserRepository;
+import org.saycc.springboot.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UserService {
     public User findById(Long id) {
         Optional<User> obj = userRepository.findById(id);
 
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public User save(User user) {
