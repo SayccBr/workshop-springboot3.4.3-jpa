@@ -10,6 +10,9 @@ import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+ * Classe que representa a entidade Pedido no banco de dados.
+ */
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {

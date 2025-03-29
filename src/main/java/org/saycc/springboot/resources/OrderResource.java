@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/*
+ * Controlador responsável pelos endpoints relacionados a pedidos (Orders).
+ */
 @RestController
 @RequestMapping(value = "/orders")
 public class OrderResource {
@@ -18,6 +21,10 @@ public class OrderResource {
     @Autowired
     private OrderService OrderService;
 
+
+    /*
+     * Endpoint para obter todos os pedidos.
+     */
     @GetMapping
     public ResponseEntity<List<Order>> findAll(){
         List<Order> Orders = OrderService.findAll();
@@ -25,6 +32,9 @@ public class OrderResource {
         return ResponseEntity.ok().body(Orders);
     }
 
+    /*
+     * Endpoint para obter um pedido por ID.
+     */
     @GetMapping(value = "/{id}")
     public ResponseEntity<Order> findById(@PathVariable Long id) {
         Order obj = OrderService.findById(id);
