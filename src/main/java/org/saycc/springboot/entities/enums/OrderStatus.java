@@ -1,5 +1,8 @@
 package org.saycc.springboot.entities.enums;
 
+/*
+ * Enum que representa os possíveis status de um pedido.
+ */
 public enum OrderStatus {
 
     WAITING_PAYMENT(1),

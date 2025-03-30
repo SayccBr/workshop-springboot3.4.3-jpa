@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+ * Classe que representa a entidade Categoria no banco de dados.
+ */
 @Entity
 @Table(name = "tb_category")
 public class Category implements Serializable {
@@ -17,6 +20,10 @@ public class Category implements Serializable {
     private String name;
 
     @JsonIgnore
+    /*
+     * Relacionamento Muitos-para-Muitos com Produto.
+     * Uma categoria pode conter vários produtos e um produto pode pertencer a várias categorias.
+     */
     @ManyToMany(mappedBy = "categories")
     private Set<Product> product = new HashSet<>();
 

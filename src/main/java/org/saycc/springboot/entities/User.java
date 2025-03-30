@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Classe que representa um usuário (cliente) no banco de dados.
+ */
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable {
@@ -20,6 +23,10 @@ public class User implements Serializable {
     private String password;
 
     @JsonIgnore
+    /*
+     * Relacionamento Um-para-Muitos com Pedido.
+     * Um usuário pode ter vários pedidos.
+     */
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 

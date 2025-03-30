@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 
+/*
+ * Classe que representa um pagamento associado a um pedido.
+ */
 @Entity
 @Table(name = "tb_payment")
 public class Payment implements Serializable {
@@ -16,6 +19,10 @@ public class Payment implements Serializable {
     private Instant moment;
 
     @JsonIgnore
+    /*
+     * Relacionamento Um-para-Um com Pedido.
+     * O mesmo pedido só pode ter um pagamento.
+     */
     @OneToOne
     @MapsId
     private Order order;

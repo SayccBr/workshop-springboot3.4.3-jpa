@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+ * Classe que representa a entidade Produto no banco de dados.
+ */
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
@@ -19,6 +22,9 @@ public class Product implements Serializable {
     private Double price;
     private String image;
 
+    /*
+     * Relacionamento Muitos-para-Muitos com Categoria.
+     */
     @ManyToMany
     @JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"),
     inverseJoinColumns = @JoinColumn(name="cactegory_id"))

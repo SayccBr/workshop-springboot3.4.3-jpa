@@ -17,22 +17,42 @@ import java.util.Set;
 @Table(name = "tb_order")
 public class Order implements Serializable {
 
+    /*
+     * Define a chave primária da entidade.
+     */
     @Id
-    @GeneratedValue
+    @GeneratedValue // Gera valores automaticamente para a chave primária
     private Long id;
 
+    /*
+     * Formata a data para o padrão ISO 8601.
+     */
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'z'", timezone = "GMT")
     private Instant createdAt;
 
     private Integer status;
 
+    /*
+     * Relacionamento Muitos-para-Um com a entidade User.
+     * Cada pedido pertence a um único cliente.
+     */
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id") // Define a chave estrangeira na tabela "orders"
     private User client;
 
+    /*
+     * Relacionamento Um-para-Muitos com OrderItem.
+     * Um pedido pode ter vários itens.
+     */
     @OneToMany(mappedBy = "orderItemPK.order")
     private Set<OrderItem> items = new HashSet<>();
 
+
+    /*
+     * Relacionamento Um-para-Um com Payment.
+     * Um pedido pode ter um pagamento associado.
+     * O cascade ALL garante que ao remover um pedido, seu pagamento também será removido.
+     */
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
     private Payment payment;
 
